@@ -2,7 +2,7 @@
 The application is designed to analyze social-media sentiment data to uncover users’ emotions and opinions.
 
 
-Description:
+Description:  
 • In recent years, social-networking platforms such as Facebook, Twitter, and Instagram have attracted massive numbers of users. These platforms are commonly used for sharing emotions, beliefs, and opinions about events, places, and public figures.
 
 • As social media usage has grown, so has the practice of extracting and analyzing this data for purposes such as election forecasting, education, business intelligence, communication, and marketing.
