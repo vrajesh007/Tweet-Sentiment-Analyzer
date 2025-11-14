@@ -17,16 +17,16 @@ Description:
 
 
 Technologies used:  
-• Python
-• Machine Learning
-• AI
-• Deep Learning 
+• Python  
+• Machine Learning  
+• AI  
+• Deep Learning   
 
 
 Tools used:   
-• Mongo DB 
-• SVM 
-• Anaconda 
-• NPL 
-• Probability Modules 
-• Sentiment Classification Techniques 
+• Mongo DB   
+• SVM   
+• Anaconda   
+• NPL   
+• Probability Modules   
+• Sentiment Classification Techniques   
