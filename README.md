@@ -13,3 +13,6 @@ Description:
 • Twitter offers verified accounts for politicians, which is often not the case on platforms like Facebook or Instagram. Its 280-character limit encourages users to express their views concisely, making it a valuable platform for sentiment and opinion mining. Research has shown that Twitter provides deeper insights into public perception compared to traditional data-collection methods.
 
 • In this project, I also introduce an algorithm designed to extract emotional signals from large-scale tweet data for sentiment analysis. To identify influential social communities, a new method was implemented that assigns a metric value to each user’s emotionally-charged posts. The project includes comprehensive election-related sentiment analysis using multiple sentiment-analysis tools.
+
+Technologies used:
+Python, Machine Learning, AI, Deep Learning
