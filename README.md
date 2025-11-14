@@ -15,4 +15,15 @@ Description:
 • In this project, I also introduce an algorithm designed to extract emotional signals from large-scale tweet data for sentiment analysis. To identify influential social communities, a new method was implemented that assigns a metric value to each user’s emotionally-charged posts. The project includes comprehensive election-related sentiment analysis using multiple sentiment-analysis tools.
 
 Technologies used:
-Python, Machine Learning, AI, Deep Learning
+• Python
+• Machine Learning
+• AI
+• Deep Learning 
+
+Tools used: 
+• Mongo DB 
+• SVM 
+• Anaconda 
+• NPL 
+• Probability Modules 
+• Sentiment Classification Techniques 
