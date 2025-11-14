@@ -1,6 +1,7 @@
 # Tweet-Sentiment-Analyzer
 The application is designed to analyze social-media sentiment data to uncover users’ emotions and opinions.
 
+
 Description:
 • In recent years, social-networking platforms such as Facebook, Twitter, and Instagram have attracted massive numbers of users. These platforms are commonly used for sharing emotions, beliefs, and opinions about events, places, and public figures.
 
@@ -14,13 +15,15 @@ Description:
 
 • In this project, I also introduce an algorithm designed to extract emotional signals from large-scale tweet data for sentiment analysis. To identify influential social communities, a new method was implemented that assigns a metric value to each user’s emotionally-charged posts. The project includes comprehensive election-related sentiment analysis using multiple sentiment-analysis tools.
 
-Technologies used:
+
+Technologies used:  
 • Python
 • Machine Learning
 • AI
 • Deep Learning 
 
-Tools used: 
+
+Tools used:   
 • Mongo DB 
 • SVM 
 • Anaconda 
