@@ -1,32 +1,70 @@
-# Tweet-Sentiment-Analyzer
-The application is designed to analyze social-media sentiment data to uncover users’ emotions and opinions.
+# Tweet Sentiment Analyzer
 
+A Flask and MySQL web application that fetches tweets for a search query, classifies sentiment polarity (**positive**, **neutral**, **negative**) with TextBlob, flags profanity via `better-profanity`, and logs flagged accounts to MySQL.
 
-Description:  
-• In recent years, social-networking platforms such as Facebook, Twitter, and Instagram have attracted massive numbers of users. These platforms are commonly used for sharing emotions, beliefs, and opinions about events, places, and public figures.
+---
 
-• As social media usage has grown, so has the practice of extracting and analyzing this data for purposes such as election forecasting, education, business intelligence, communication, and marketing.
+## Architecture & Data Flow
 
-• Sentiment and predictive accuracy can be improved through behavioral analysis of social-network data. For example, to understand the opinions surrounding leaders of two major political parties in India, data was collected from their public Twitter profiles. Using the Opinion Lexicon, tweets were classified into positive, neutral, and negative categories. The results showed that understanding public sentiment can help political parties refine their strategies.
+<p align="center">
+  <img src="docs/data-flow-diagram.png" width="666" alt="Tweet Sentiment Analyzer Data Flow Diagram" />
+</p>
 
-• Similarly, a keyword-based dataset was created for the 2013 Pakistan elections, focusing on tweets mentioning political parties and well-known political figures. This dataset was evaluated using both supervised and unsupervised machine-learning methods, including the Rainbow tool, Print, K-Nearest Neighbors (KNN), and Naïve Bayes algorithms.
+1. User submits a search topic and desired sample counts in `templates/FrontEnd.html`.
+2. `BackEnd.py` calls `Analysis.TwitterClient` (`tweepy` + `TextBlob` + `better-profanity`).
+3. Flagged tweets are persisted via `AbusiveTweetsDB.py` to `abusiveTweetsDB.abusiveTweetsTable`.
+4. Sentiment distribution and filtered tweets render in `templates/DisplayResult.html`.
 
-• Twitter offers verified accounts for politicians, which is often not the case on platforms like Facebook or Instagram. Its 280-character limit encourages users to express their views concisely, making it a valuable platform for sentiment and opinion mining. Research has shown that Twitter provides deeper insights into public perception compared to traditional data-collection methods.
+---
 
-• In this project, I also introduce an algorithm designed to extract emotional signals from large-scale tweet data for sentiment analysis. To identify influential social communities, a new method was implemented that assigns a metric value to each user’s emotionally-charged posts. The project includes comprehensive election-related sentiment analysis using multiple sentiment-analysis tools.
+## Quick Start (Docker Compose)
 
+1. Copy the environment template and add your Twitter Developer credentials:
 
-Technologies used:  
-• Python  
-• Machine Learning  
-• AI  
-• Deep Learning   
+```bash
+cp .env.example .env
+```
 
+2. Build and start Flask + MySQL (auto-initializes `sql/schema.sql`):
 
-Tools used:   
-• Mongo DB   
-• SVM   
-• Anaconda   
-• NPL   
-• Probability Modules   
-• Sentiment Classification Techniques   
+```bash
+docker compose up --build
+```
+
+3. Open **http://localhost:5000**.
+
+---
+
+## Running Locally (Without Docker)
+
+1. Import `sql/schema.sql` into a local MySQL instance.
+2. Install Python dependencies and TextBlob corpora:
+
+```bash
+pip install -r requirements.txt
+python -m textblob.download_corpora
+```
+
+3. Configure `.env` (set `MYSQL_HOST=localhost`) and run:
+
+```bash
+python BackEnd.py
+```
+
+---
+
+## Repository Structure
+
+```text
+├── BackEnd.py            # Flask routes and sentiment aggregation
+├── Analysis.py           # TwitterClient, TextBlob polarity, profanity check
+├── AbusiveTweetsDB.py    # MySQL persistence helper
+├── sql/schema.sql        # Database and table DDL
+├── templates/            # FrontEnd.html & DisplayResult.html
+├── static/               # CSS, JS, fonts, and vendor assets
+├── docs/                 # Data flow diagram
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── .env.example
+```

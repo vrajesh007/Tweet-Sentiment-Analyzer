@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Result</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons/icons8-twitter-squared-96.png') }}"/>
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--===============================================================================================-->
+        <style>
+            body {font-family: Arial;}
+            .tab {
+              overflow: hidden;
+              border: 1px solid #ccc;
+              background-color: #f1f1f1;
+            }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+              background-color: inherit;
+              float: left;
+              border: none;
+              outline: none;
+              cursor: pointer;
+              padding: 14px 16px;
+              transition: 0.3s;
+              font-size: 17px;
+            }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+              background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+              background-color: #ccc;
+            }
+
+            /* Style the tab content */
+            .tabcontent {
+              display: none;
+              padding: 6px 12px;
+              border: 1px solid #ccc;
+              border-top: none;
+            }
+            body{
+                background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+                background: -o-linear-gradient(left, #0072ff, #00c6ff);
+                background: -moz-linear-gradient(left, #0072ff, #00c6ff);
+                background: linear-gradient(left, #0072ff, #00c6ff);
+            }
+            a:link {
+              color: black;
+              background-color: white;
+              text-decoration: none;
+              font-family: Arial
+            }
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+        </style>
+    </head>
+    <body>
+
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Positive</button>
+                <button class="tablinks" onclick="openCity(event, 'Paris')">Negative</button>
+                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Neutral</button>
+                <button class="tablinks" onclick="openCity(event, 'NY')">Pie-Chart</button>
+                <button class="tablinks" onclick="openCity(event, 'LA')">Profane Tweets Table</button>
+            </div>
+            <div id="London" class="tabcontent">
+              <h3>Positive Tweets:</h3><br>
+                {% set count= namespace(value=1)%}
+              {% for item in resList %}
+                {% if item['sentiment']=='positive'%}
+                <p style="color:black;">{{ count.value }}) {{ item['text'] }}</p>
+                {% set count.value = count.value + 1%}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div id="Paris" class="tabcontent">
+              <h3>Negative Tweets:</h3><br>
+                {% set count= namespace(value=1)%}
+              {% for item in resList %}
+                {% if item['sentiment']=='negative'%}
+                <p style="color:black;">{{ count.value }}) {{ item['text'] }}</p>
+                {% set count.value = count.value + 1%}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div id="Tokyo" class="tabcontent">
+              <h3>Neutral Tweets:</h3><br>
+                {% set count= namespace(value=1)%}
+              {% for item in resList %}
+                {% if item['sentiment']=='neutral'%}
+                <p style="color:black;">{{ count.value }}) {{ item['text'] }}</p>
+                {% set count.value = count.value + 1%}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div id="NY" class="tabcontent">
+                <h3>Sentiment Pie-Chart:</h3><br>
+                <h6>- The the original number of tweets(i.e. 200) arriving from Twitter API are classified into Positive, Negative, Neutral using Pie-chart.</h6>
+                <div style="margin: 10px 0 0 10px;width: 1000px;">
+                    <div id="piechart_3d" style="width: 900px; height: 200px;"></div>
+                </div>
+            </div>
+            <div id="LA" class="tabcontent">
+                <h3>Profane Tweets Table:</h3><br>
+                    <table>
+                      <tr>
+                          <th>Sr.No.</th>
+                          <th>Name</th>
+                          <th>Latest Abusive Tweet by User</th>
+                          <th>Sentiment</th>
+                          <th>Abusive</th>
+                          <th>Count</th>
+                          <th>Date</th>
+                      </tr>
+                        {% for row in records %}
+                      <tr>
+                          <td>{{ row[0] }}</td>
+                          <td>{{ row[1] }}</td>
+                          <td>{{ row[2] }}</td>
+                          <td>{{ row[3] }}</td>
+                          <td>{{ row[4] }}</td>
+                          <td>{{ row[5] }}</td>
+                          <td>{{ row[6] }}</td>
+                      </tr>
+                        {% endfor %}
+                    </table>
+            </div>
+
+            <div style="position: relative; bottom: -5px;">
+                <a href="/"><h4>&#8678; Go back to Home</h4></a>
+            </div>
+            <script type="text/javascript">
+                      function openCity(evt, cityName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(cityName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
+                    // Get the element with id="defaultOpen" and click on it
+                    document.getElementById("defaultOpen").click();
+                      google.charts.load("current", {packages:["corechart"]});
+                      google.charts.setOnLoadCallback(drawChart);
+                      function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            {% for key, value in data.items() %}
+                                {% if value is string %}
+                                    ['{{ key }}', '{{ value }}'],
+                                {% else %}
+                                    ['{{ key }}', {{ value }}],
+                                {% endif %}
+                            {% endfor %}
+                        ]);
+
+                        var options = {
+                          title: 'Positive, Negative, and Neutral Classification',
+                          is3D: true,
+                          width: '100%',
+                          height: '100%',
+                          chartArea: {
+                              left: "3%",
+                              top: "3%",
+                              height: "100%",
+                              width: "100%"
+                          }
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                        chart.draw(data, options);
+                      }
+            </script>
+    </body>
+</html>
